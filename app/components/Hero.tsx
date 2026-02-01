@@ -11,6 +11,7 @@ export default function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-6 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
         {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -55,23 +56,40 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* RIGHT PREVIEW CARD */}
+        {/* RIGHT DASHBOARD PREVIEW */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           className="relative"
         >
-          <div className="rounded-2xl border bg-white shadow-lg">
-            <div className="flex items-center justify-between px-4 py-2 border-b text-sm text-gray-600">
+          {/* glow behind card */}
+          <div className="absolute -inset-8 bg-teal-400/20 blur-3xl rounded-3xl" />
+
+          <div className="relative rounded-2xl border bg-white shadow-xl overflow-hidden">
+            {/* Card Header */}
+            <div className="flex items-center justify-between px-4 py-2 border-b text-sm text-gray-600 bg-white/70 backdrop-blur">
               <span>AI-Powered Business Dashboard</span>
-              <span className="rounded-full border px-3 py-1 text-xs">
+              <span className="rounded-full border px-3 py-1 text-xs bg-white">
                 Live Preview
               </span>
             </div>
-            <div className="h-64 rounded-b-2xl bg-gradient-to-br from-gray-100 via-gray-200 to-gray-100" />
+
+            {/* HERO DASHBOARD SVG */}
+            <motion.img
+              src="/illustrations/hero-dashboard.svg"
+              alt="AI powered dashboard preview"
+              className="w-full h-auto"
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
           </div>
         </motion.div>
+
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-
+import type { Variants } from "framer-motion";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import {
@@ -31,7 +31,7 @@ const floatSlow = {
     transition: {
       duration: 7,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: "easeInOut" as any,
     },
   },
 };
