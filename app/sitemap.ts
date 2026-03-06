@@ -1,36 +1,32 @@
-import { MetadataRoute } from "next";
-
-export const dynamic = "force-static";
-
+import { MetadataRoute } from 'next'
+ 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://globalcoretech.com";
-
-  const services = [
-    "website-development",
-    "custom-software",
-    "mobile-app-development",
-    "ai-business-automation",
-    "support-maintenance",
-  ];
-
+  const baseUrl = 'https://www.globlcoretech.com'
+  
   return [
     {
-      url: `${baseUrl}/`,
+      url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "weekly" as const,
+      changeFrequency: 'yearly',
       priority: 1,
     },
     {
-      url: `${baseUrl}/services/`,
+      url: `${baseUrl}/about`,
       lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    },
-    ...services.map((slug) => ({
-      url: `${baseUrl}/services/${slug}/`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
+      changeFrequency: 'monthly',
       priority: 0.8,
-    })),
-  ];
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/services`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+  ]
 }

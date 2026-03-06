@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://www.globalcoretech.com/sitemap.xml',
+    sitemap: 'https://www.globlcoretech.com/sitemap.xml',
   }
 }
