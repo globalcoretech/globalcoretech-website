@@ -1,148 +1,143 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
+import {
+  Globe,
+  Smartphone,
+  Brain,
+  Database,
+} from "lucide-react";
 
 const services = [
+
   {
-    title: "Website Development",
-    slug: "website-development",
-    desc:
-      "Modern, responsive, and high-performing websites that represent your brand and convert visitors into customers.",
-    illustration: "/illustrations/website.svg",
+    title: "Web App & Website Development",
+    description:
+      "High-performance websites and scalable platforms built for speed, reliability, and conversion.",
+    icon: Globe,
+    href: "/services/web-app-website-development",
   },
-  {
-    title: "Custom Software Development",
-    slug: "custom-software",
-    desc:
-      "Tailor-made software solutions designed around your business workflows to automate operations and improve efficiency.",
-    illustration: "/illustrations/saas.svg",
-  },
+
   {
     title: "Mobile App Development",
-    slug: "mobile-app-development",
-    desc:
-      "High-performance mobile applications with intuitive UI/UX that engage users and support business goals.",
-    illustration: "/illustrations/mobile.svg",
+    description:
+      "Modern Android and iOS apps designed for performance, scalability, and seamless user experience.",
+    icon: Smartphone,
+    href: "/services/mobile-app-development",
   },
+
   {
-    title: "AI & Business Automation Solutions",
-    slug: "ai-business-automation",
-    desc:
-      "AI-powered automation systems that streamline workflows, reduce manual effort, and improve operational efficiency.",
-    illustration: "/illustrations/ai.svg",
+    title: "AI Automation Solutions",
+    description:
+      "Automate workflows and integrate intelligent systems to improve efficiency and reduce manual work.",
+    icon: Brain,
+    href: "/services/ai-automation-solutions",
   },
+
   {
-    title: "Support & Maintenance",
-    slug: "support-maintenance",
-    desc:
-      "Ongoing support and maintenance to keep your digital systems secure, optimized, and running smoothly.",
-    illustration: "/illustrations/support.svg",
+    title: "SaaS & Custom Software Development",
+    description:
+      "Tailor-made scalable software systems designed specifically for your business workflows.",
+    icon: Database,
+    href: "/services/saas-custom-software-development",
   },
+
 ];
 
 export default function Services() {
+
   return (
-    <section className="max-w-6xl mx-auto px-6 py-32">
-      {/* ================= HEADER ================= */}
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={fadeUp}
-        transition={{ duration: 0.5 }}
-        className="max-w-3xl"
-      >
-        <h1 className="text-4xl md:text-5xl font-semibold">
-          Our <span className="text-teal-500">Services</span>
-        </h1>
 
-        <p className="mt-4 text-gray-600 text-lg">
-          We provide end-to-end software development and AI-powered solutions
-          designed to solve real business problems, improve efficiency, and
-          support long-term growth.
-        </p>
-      </motion.div>
+    <section className="py-24">
 
-      {/* ================= SERVICES LIST ================= */}
-      <div className="mt-24 space-y-28">
-        {services.map((service) => (
-          <motion.div
-            key={service.slug}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            transition={{ duration: 0.5 }}
-            className="grid md:grid-cols-2 gap-16 items-center"
-          >
-            {/* TEXT CARD */}
-            <motion.div
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 220, damping: 20 }}
-              className="glass-card p-10 rounded-3xl"
-            >
-              <h2 className="text-2xl font-semibold">
-                {service.title}
-              </h2>
+      <div className="max-w-6xl mx-auto px-6">
 
-              <p className="mt-4 text-gray-600 max-w-lg">
-                {service.desc}
-              </p>
+        {/* SECTION TITLE */}
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-semibold text-center mb-12"
+        >
+          Our <span className="text-teal-400">Services</span>
+        </motion.h2>
+
+
+        {/* SERVICES GRID */}
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+
+          {services.map((service, index) => {
+
+            const Icon = service.icon;
+
+            return (
 
               <Link
-                href={`/services/${service.slug}`}
-                className="
-                  inline-flex items-center gap-2
-                  mt-6 px-6 py-3 rounded-full
-                  bg-black text-white text-sm
-                  hover:bg-teal-500 hover:text-black
-                  transition-all
-                "
+                key={index}
+                href={service.href}
+                className="group"
               >
-                View Details →
-              </Link>
-            </motion.div>
 
-            {/* ILLUSTRATION */}
-            <motion.img
-              src={service.illustration}
-              alt={service.title}
-              className="w-full max-w-md mx-auto"
-              animate={{ y: [0, -10, 0] }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </motion.div>
-        ))}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="
+                  border border-white/10
+                  rounded-xl
+                  p-6
+                  bg-white/5
+                  hover:border-teal-400
+                  hover:shadow-[0_0_30px_rgba(45,212,191,0.25)]
+                  transition-all duration-300
+                  cursor-pointer
+                  "
+                >
+
+                  {/* ICON */}
+
+                  <Icon
+                    size={26}
+                    className="
+                    text-teal-400 mb-4
+                    group-hover:scale-110
+                    transition
+                    "
+                  />
+
+
+                  {/* TITLE */}
+
+                  <h3 className="text-lg font-semibold mb-2">
+                    {service.title}
+                  </h3>
+
+
+                  {/* DESCRIPTION */}
+
+                  <p className="text-gray-400 text-sm">
+                    {service.description}
+                  </p>
+
+                </motion.div>
+
+              </Link>
+
+            );
+
+          })}
+
+        </div>
+
       </div>
 
-      {/* ================= BRIDGE / TRANSITION ================= */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUp}
-        transition={{ duration: 0.5 }}
-        className="mt-32 max-w-3xl"
-      >
-        <p className="text-xl font-medium">
-          Services are just tools.
-        </p>
-
-        <p className="mt-3 text-gray-600 text-lg">
-          What truly matters is how these solutions are applied to your
-          business challenges. That’s where our approach makes the
-          difference.
-        </p>
-      </motion.div>
     </section>
+
   );
+
 }

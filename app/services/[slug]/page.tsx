@@ -1,103 +1,174 @@
 import { notFound } from "next/navigation";
-import ServiceDetailClient from "@/components/ServiceDetailClient";
-import type { Service } from "@/components/ServiceDetailClient";
+import type { Metadata } from "next";
+import ServiceDetailClient from "../ServiceDetailClient";
+import { servicesData } from "../../data/servicesData";
 
-export const dynamicParams = false;
+type Params = Promise<{
+  slug: string;
+}>;
 
-/* ===============================
-   SERVICE DATA
-=============================== */
-const services: Record<string, Service> = {
-  "website-development": {
-    title: "Website Development",
-    desc:
-      "Modern, responsive, and high-performing websites that represent your brand and convert visitors into customers.",
-    points: [
-      "Custom website design",
-      "Responsive & mobile-friendly layouts",
-      "SEO-friendly structure",
-      "Fast loading performance",
-      "Secure & scalable architecture",
-    ],
-    illustration: "/illustrations/website.svg",
-  },
-
-  "custom-software": {
-    title: "Custom Software Development",
-    desc:
-      "Tailor-made software solutions designed around your business workflows to automate operations and improve efficiency.",
-    points: [
-      "Business process automation",
-      "CRM / ERP systems",
-      "Admin dashboards",
-      "API integrations",
-    ],
-    illustration: "/illustrations/saas.svg",
-  },
-
-  "mobile-app-development": {
-    title: "Mobile App Development",
-    desc:
-      "High-performance mobile applications with intuitive UI/UX that engage users and support business goals.",
-    points: [
-      "Android & iOS apps",
-      "Cross-platform development",
-      "UI/UX design",
-      "Performance optimization",
-    ],
-    illustration: "/illustrations/mobile.svg",
-  },
-
-  "ai-business-automation": {
-    title: "AI & Business Automation Solutions",
-    desc:
-      "We help businesses automate repetitive tasks, streamline workflows, and improve decision-making using AI-powered automation systems.",
-    points: [
-      "Manual workflow automation",
-      "AI chatbots & assistants",
-      "CRM & internal tools",
-      "Data processing & reporting",
-      "Custom AI tools for operations",
-    ],
-    illustration: "/illustrations/ai.svg",
-  },
-
-  "support-maintenance": {
-    title: "Support & Maintenance",
-    desc:
-      "Ongoing support and maintenance to keep your digital systems secure, optimized, and running smoothly.",
-    points: [
-      "Bug fixing",
-      "Performance optimization",
-      "Security updates",
-      "Regular backups",
-    ],
-    illustration: "/illustrations/support.svg",
-  },
-};
-
-/* ===============================
-   STATIC PARAMS (REQUIRED)
-=============================== */
+/* ================= STATIC PARAMS ================= */
 export async function generateStaticParams() {
-  return Object.keys(services).map((slug) => ({
+  return Object.keys(servicesData).map((slug) => ({
     slug,
   }));
 }
 
-/* ===============================
-   PAGE (IMPORTANT: ASYNC)
-=============================== */
-export default async function ServiceDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params; // ✅ THIS IS THE FIX
+/* ================= METADATA ================= */
+export async function generateMetadata(
+  { params }: { params: Params }
+): Promise<Metadata> {
 
-  const service = services[slug];
+  const { slug } = await params;   // ✅ FIXED
 
-  if (!service) notFound();
+  const service = servicesData[slug];
 
-  return <ServiceDetailClient service={service} />;
+  if (!service) {
+    return {};
+  }
+
+  const baseUrl = "https://www.globlcoretech.com";
+  const url = `${baseUrl}/services/${slug}`;
+  const imageUrl = `${baseUrl}/og-images/${slug}.png`;
+
+  return {
+    title: `${service.title} | GlobalcoreTech`,
+    description: service.overview,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: service.title,
+      description: service.overview,
+      url: url,
+      siteName: "GlobalcoreTech",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
+      locale: "en_IN",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.title,
+      description: service.overview,
+      images: [imageUrl],
+    },
+  };
+}
+
+/* ================= PAGE ================= */
+export default async function ServiceDetailPage(
+  { params }: { params: Params }
+) {
+
+  const { slug } = await params;   // ✅ FIXED
+
+  const service = servicesData[slug];
+
+  if (!service) {
+    notFound();
+  }
+
+  const baseUrl = "https://www.globlcoretech.com";
+
+  /* ================= SERVICE SCHEMA ================= */
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title,
+    description: service.overview,
+    provider: {
+      "@type": "Organization",
+      name: "GlobalcoreTech",
+      url: baseUrl,
+    },
+  };
+
+  /* ================= BREADCRUMB SCHEMA ================= */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: `${baseUrl}/services`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `${baseUrl}/services/${slug}`,
+      },
+    ],
+  };
+
+  /* ================= FAQ SCHEMA ================= */
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How long does development take?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Most projects take between 4 to 12 weeks depending on complexity.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do you provide ongoing support?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, we provide ongoing support, maintenance, and optimization.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can the system scale as business grows?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, we build scalable systems designed for long-term growth.",
+        },
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
+      <ServiceDetailClient service={service} />
+    </>
+  );
 }

@@ -1,25 +1,24 @@
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import CTA from "./components/CTA";
-import WhyChooseUs from "./components/WhyChooseUs";
-import Process from "./components/Process";
-import ContactForm from "./components/ContactForm";
-import HowWeHelp from "@/components/HowWeHelp";
-import HowWeHelpTimeline from "@/components/HowWeHelpTimeline";
+import HeroSection from "@/components/home/HeroSection";
+import ServicesSection from "@/components/home/ServicesSection";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import ProcessSection from "@/components/home/ProcessSection";
+import PartnerSection from "@/components/home/PartnerSection";
+import CTASection from "@/components/home/CTASection";
 
+export const metadata = {
+title: "GlobalcoreTech | Premium Software & AI Solutions",
+description:
+"We design and build premium software, AI automation, and scalable digital products for startups and enterprises.",
+};
 
-
-
-
-export default function Page() {
-  return (
-    <main>
-      <Hero />
-      <Services />
-      <HowWeHelpTimeline/>
-      <WhyChooseUs />
-      <Process />
-      <CTA />
-    </main>
-  );
+export default function HomePage() {
+return (
+<div className="relative bg-[#0B0F0E] selection:bg-teal-500/30 font-sans text-white overflow-hidden">
+  <HeroSection />
+  <ServicesSection />
+  <PartnerSection />
+  <ProcessSection />
+  <CTASection />
+</div>
+);
 }

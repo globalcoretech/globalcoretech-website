@@ -1,16 +1,11 @@
-import AboutSections from "@/components/AboutSections";
+import AboutClient from "./AboutClient";
 
 export const metadata = {
   title: "About Us | GlobalcoreTech",
   description:
-    "Learn about GlobalcoreTech — our mission, vision, and how we build scalable software & AI solutions.",
+    "Founder-led engineering company building scalable systems with clarity, structure, and long-term thinking.",
 };
 
-export default function AboutPage() {
-  return (
-    <main className="pt-28">
-      {/* pt-28 = navbar ke neeche proper gap */}
-      <AboutSections />
-    </main>
-  );
+export default function Page() {
+  return <AboutClient />;
 }

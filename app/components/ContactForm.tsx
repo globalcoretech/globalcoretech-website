@@ -1,93 +1,92 @@
 "use client";
 
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+
+type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactForm() {
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true);
-    setError("");
 
-    const formData = new FormData(e.currentTarget);
-    formData.append("access_key", "0213a441-64b4-49da-b9dc-983dc31fb041");
+    // ✅ IMPORTANT: store form reference immediately
+    const form = e.currentTarget;
 
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData,
-    });
+    setStatus("loading");
 
-    const data = await res.json();
-    setLoading(false);
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        form,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
 
-    if (data.success) {
-      setSuccess(true);
-      e.currentTarget.reset();
-    } else {
-      setError("Something went wrong. Please try again.");
+      form.reset(); // ✅ SAFE
+      setStatus("success");
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setStatus("error");
     }
   }
 
   return (
-    <section className="bg-white">
-      <div className="mx-auto max-w-3xl px-6 py-24">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
-          Get in <span className="text-teal-500">Touch</span>
-        </h2>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <input
+        type="text"
+        name="name"
+        required
+        placeholder="Your Name"
+        className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3
+                   text-white placeholder:text-gray-400 outline-none
+                   focus:border-teal-400"
+      />
 
-        <p className="mt-4 text-center text-gray-600">
-          Tell us about your project and we’ll get back to you shortly.
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder="Your Email"
+        className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3
+                   text-white placeholder:text-gray-400 outline-none
+                   focus:border-teal-400"
+      />
+
+      <textarea
+        name="message"
+        required
+        rows={5}
+        placeholder="Tell us about your project"
+        className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3
+                   text-white placeholder:text-gray-400 outline-none
+                   focus:border-teal-400"
+      />
+
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="w-full rounded-lg bg-teal-400 py-3 font-medium text-black
+                   transition hover:shadow-[0_0_30px_rgba(45,212,191,0.9)]
+                   disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {status === "loading" ? "Sending..." : "Send message"}
+      </button>
+
+      {/* ✅ SUCCESS MESSAGE */}
+      {status === "success" && (
+        <p className="text-sm text-green-400">
+          ✓ Message sent. We’ll be in touch.
         </p>
+      )}
 
-        <form onSubmit={handleSubmit} className="mt-10 space-y-6">
-          <input
-            type="text"
-            name="name"
-            required
-            placeholder="Your Name"
-            className="w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="Your Email"
-            className="w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-
-          <textarea
-            name="message"
-            required
-            placeholder="Tell us about your project"
-            rows={5}
-            className="w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-full bg-black px-6 py-3 text-white font-medium hover:bg-gray-800 transition disabled:opacity-50"
-          >
-            {loading ? "Sending..." : "Send Message"}
-          </button>
-
-          {success && (
-            <p className="text-center text-green-600">
-              ✅ Message sent successfully!
-            </p>
-          )}
-
-          {error && (
-            <p className="text-center text-red-600">
-              ❌ {error}
-            </p>
-          )}
-        </form>
-      </div>
-    </section>
+      {/* ❌ ERROR MESSAGE */}
+      {status === "error" && (
+        <p className="text-sm text-red-400">
+          Something went wrong. Try again.
+        </p>
+      )}
+    </form>
   );
 }

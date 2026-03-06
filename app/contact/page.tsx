@@ -1,15 +1,11 @@
-import ContactSection from "@/components/ContactSection";
+import type { Metadata } from "next";
+import ContactClient from "./ContactClient";
 
-export const metadata = {
-  title: "Contact Us | GlobalcoreTech",
-  description:
-    "Get in touch with GlobalcoreTech to discuss software development, AI automation, or business solutions.",
+export const metadata: Metadata = {
+title: "Contact Us | Globalcore Tech",
+description: "Get in touch with Globalcore Tech for scalable software, web development, and AI-powered automation solutions.",
 };
 
 export default function ContactPage() {
-  return (
-    <main className="pt-28">
-      <ContactSection />
-    </main>
-  );
+return <ContactClient />;
 }

@@ -1,64 +1,70 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden bg-neutral-950"
-    >
-      {/* Background glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-500/20 blur-[140px]" />
-      </div>
+    <section className="py-32 px-6 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 bg-teal-500/10 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="max-w-5xl mx-auto relative z-10">
+        <div className="bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-20 text-center backdrop-blur-sm relative overflow-hidden group">
+          
+          {/* Decorative Particles */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <div className="absolute top-10 left-10 w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
+            <div className="absolute bottom-10 right-20 w-3 h-3 bg-blue-500 rounded-full animate-bounce" />
+          </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-24 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-3xl md:text-4xl font-bold tracking-tight text-white"
-        >
-          Ready to build something{" "}
-          <span className="text-teal-400">great</span>?
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-          className="mx-auto mt-4 max-w-2xl text-gray-300"
-        >
-          Let’s discuss your idea and explore how we can help you build scalable
-          software and AI-powered solutions that deliver real business impact.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-          className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
-        >
-          <a
-            href="/contact"
-            className="rounded-full bg-teal-500 px-6 py-4 text-sm font-medium text-black hover:bg-teal-400 transition"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-sm font-bold tracking-widest uppercase mb-8"
           >
-            Contact Us
-          </a>
+            <Sparkles size={16} /> Ready to start?
+          </motion.div>
 
-          <a
-            href="https://wa.me/919589300881"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-white/20 px-6 py-4 text-sm font-medium text-white hover:bg-white/10 transition"
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter"
           >
-            WhatsApp
-          </a>
-        </motion.div>
+            Let's build something <br />
+            <span className="text-teal-400 italic">extraordinary.</span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-neutral-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
+          >
+            Whether you're a startup or an enterprise, we have the engineering expertise to scale your vision.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <Link
+              href="/contact"
+              className="group relative inline-flex items-center gap-3 bg-teal-400 hover:bg-teal-300 text-black px-10 py-5 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-[0_0_30px_rgba(45,212,191,0.3)]"
+            >
+              Start Your Project
+              <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );

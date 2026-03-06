@@ -1,11 +1,15 @@
-import ServicesHero from "@/components/ServicesHero";
-import Services from "@/components/Services";
+import ServicesClient from "./ServicesClient";
+import DepthLayer from "../components/animations/DepthLayer";
 
 export default function ServicesPage() {
   return (
-    <>
-      <ServicesHero /> 
-      <Services />
-    </>
+    <main className="relative bg-[#050b0b] overflow-hidden">
+
+      {/* Entire page in depth layer */}
+      <DepthLayer speed={0.15}>
+        <ServicesClient />
+      </DepthLayer>
+
+    </main>
   );
 }
