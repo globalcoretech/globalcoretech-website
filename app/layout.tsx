@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/logo/logo.png", // Browser tab icon ka path
   },
+
+    verification: {
+    google: "U_96KA88lGZz-j9eK9JRcPvtN9ZvMyakrrQwQAQ9R5E", // Google Search Console verification token
+  },
+
   openGraph: {
     title: "Globalcore Tech | Engineering Excellence",
     description: "Transforming ideas into scalable digital products.",
