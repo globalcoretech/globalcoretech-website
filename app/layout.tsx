@@ -1,4 +1,4 @@
-import type { Metadata } from "next"; // Added Metadata type
+import type { Metadata } from "next"; 
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./global.css";
 import SmoothScroll from "./components/SmoothScroll";
@@ -9,26 +9,38 @@ import Footer from "./components/Footer";
 // 1. GLOBAL SEO METADATA SECTION
 export const metadata: Metadata = {
   title: {
-    default: "Globalcore Tech | Premium Software Engineering Agency",
-    template: "%s | Globalcore Tech"
+    default: "Globlcore Tech | Premium Software Engineering Agency",
+    template: "%s | Globlcore Tech"
   },
-  description: "Globalcore Tech builds high-performance SaaS, AI Automation, and Web Applications. Engineering excellence for modern startups.",
-  keywords: ["SaaS Development", "AI Automation", "Software Agency", "Web Development", "Mobile Apps", "Globalcore Tech"],
+  description: "Globlcore Tech builds high-performance SaaS, AI Automation, and Web Applications. Engineering excellence for modern startups.",
+  keywords: ["SaaS Development", "AI Automation", "Software Agency", "Web Development", "Mobile Apps", "Globlcore Tech"],
   icons: {
-    icon: "/logo/logo.png", // Browser tab icon ka path
+    icon: "/logo/logo.png", 
   },
-
-    verification: {
-    google: "U_96KA88lGZz-j9eK9JRcPvtN9ZvMyakrrQwQAQ9R5E", // Google Search Console verification token
+  verification: {
+    google: "U_96KA88lGZz-j9eK9JRcPvtN9ZvMyakrrQwQAQ9R5E", 
   },
-
   openGraph: {
-    title: "Globalcore Tech | Engineering Excellence",
+    title: "Globlcore Tech | Engineering Excellence",
     description: "Transforming ideas into scalable digital products.",
-    url: "https://www.globalcoretech.com",
-    siteName: "Globalcore Tech",
+    url: "https://www.globlcoretech.com",
+    siteName: "Globlcore Tech",
+    images: [
+      {
+        url: "https://www.globlcoretech.com/og-image.png", // Make sure this image exists in your public folder
+        width: 1200,
+        height: 630,
+        alt: "Globlcore Tech Agency Preview",
+      },
+    ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Globlcore Tech | Premium Software Agency",
+    description: "AI Automation & SaaS Development Experts",
+    images: ["https://www.globlcoretech.com/og-image.png"],
   },
 };
 
@@ -43,15 +55,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const schemaDomain = "https://www.globlcoretech.com";
+  
   return (
     <html lang="en">
       <body className={`${jakarta.className} relative bg-[#0B0F0E] text-white`}>
-        {/* CLIENT SAFE FLOATING BACKGROUND */}
         <div className="pointer-events-none fixed inset-0 z-0">
           <SafeFloating />
         </div>
 
-        {/* MAIN CONTENT */}
         <div className="relative z-10">
           <SmoothScroll>
             <Navbar />
@@ -67,9 +79,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "GlobalcoreTech",
-              url: "https://www.globalcoretech.com",
-              logo: "https://globalcoretech.com/logo/logo.png",
+              name: "GloblcoreTech",
+              url: schemaDomain,
+              logo: `${schemaDomain}/logo/logo.png`,
               founder: {
                 "@type": "Person",
                 name: "Umesh Yadav",
@@ -81,7 +93,7 @@ export default function RootLayout({
               contactPoint: {
                 "@type": "ContactPoint",
                 contactType: "Customer Support",
-                email: "contact@globalcoretech.com"
+                email: "contact@globlcoretech.com"
               }
             }),
           }}
@@ -94,11 +106,11 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "GlobalcoreTech",
-              url: "https://www.globalcoretech.com",
+              name: "GloblcoreTech",
+              url: schemaDomain,
               potentialAction: {
                 "@type": "SearchAction",
-                target: "https://www.globalcoretech.com/search?q={search_term_string}",
+                target: `${schemaDomain}/search?q={search_term_string}`,
                 "query-input": "required name=search_term_string"
               }
             }),
