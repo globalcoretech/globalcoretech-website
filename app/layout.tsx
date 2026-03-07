@@ -9,11 +9,11 @@ import Footer from "./components/Footer";
 // 1. GLOBAL SEO METADATA SECTION
 export const metadata: Metadata = {
   title: {
-    default: "Globlcore Tech | Premium Software Engineering Agency",
-    template: "%s | Globlcore Tech"
+    default: "Globalcore Tech | Premium Software Engineering Agency",
+    template: "%s | Globalcore Tech"
   },
-  description: "Globlcore Tech builds high-performance SaaS, AI Automation, and Web Applications. Engineering excellence for modern startups.",
-  keywords: ["SaaS Development", "AI Automation", "Software Agency", "Web Development", "Mobile Apps", "Globlcore Tech"],
+  description: "Globalcore Tech builds high-performance SaaS, AI Automation, and Web Applications. Engineering excellence for modern startups.",
+  keywords: ["SaaS Development", "AI Automation", "Software Agency", "Web Development", "Mobile Apps", "Globalcore Tech"],
   icons: {
     icon: "/logo/logo.png", 
   },
@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     google: "U_96KA88lGZz-j9eK9JRcPvtN9ZvMyakrrQwQAQ9R5E", 
   },
   openGraph: {
-    title: "Globlcore Tech | Engineering Excellence",
+    title: "Globalcore Tech | Engineering Excellence",
     description: "Transforming ideas into scalable digital products.",
     url: "https://www.globlcoretech.com",
-    siteName: "Globlcore Tech",
+    siteName: "Globalcore Tech",
     images: [
       {
         url: "https://www.globlcoretech.com/og-image.png", // Make sure this image exists in your public folder
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Globlcore Tech | Premium Software Agency",
+    title: "Globalcore Tech | Premium Software Agency",
     description: "AI Automation & SaaS Development Experts",
     images: ["https://www.globlcoretech.com/og-image.png"],
   },
@@ -79,7 +79,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "GloblcoreTech",
+              name: "GlobalcoreTech",
               url: schemaDomain,
               logo: `${schemaDomain}/logo/logo.png`,
               founder: {
@@ -106,7 +106,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "GloblcoreTech",
+              name: "GlobalcoreTech",
               url: schemaDomain,
               potentialAction: {
                 "@type": "SearchAction",
