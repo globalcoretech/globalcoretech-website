@@ -1,142 +1,50 @@
-export default function TermsAndConditions() {
+import React from 'react';
+
+export default function TermsConditions() {
   return (
-    <main className="bg-white">
-      {/* Header */}
-      <section className="border-b border-gray-100 bg-gray-50">
-        <div className="mx-auto max-w-5xl px-6 py-16">
-          <h1 className="text-4xl font-bold text-gray-900">
-            Terms &{" "}
-            <span className="text-teal-500">Conditions</span>
-          </h1>
-          <p className="mt-4 text-lg text-gray-600">
-            Please read these terms carefully before using our website or
-            services.
-          </p>
+    <main className="min-h-screen bg-[#0B0F0E] pt-32 pb-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          Terms & <span className="text-teal-400">Conditions</span>
+        </h1>
+        <p className="text-neutral-500 mb-12 italic">Effective Date: March 2026</p>
+        
+        <div className="space-y-10 text-neutral-400 leading-relaxed text-lg">
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">1. Agreement to Terms</h2>
+            <p>By accessing or using the Globlcore Tech website, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not access our services.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">2. Intellectual Property Rights</h2>
+            <p>Unless otherwise indicated, the website and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio) are owned by Globlcore Tech and are protected by international copyright and trademark laws.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">3. User Obligations</h2>
+            <p>You agree not to use the website for any purpose that is unlawful or prohibited by these Terms. You may not use the website in any manner that could damage, disable, overburden, or impair any Globlcore Tech server.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">4. Limitation of Liability</h2>
+            <p>In no event shall Globlcore Tech, nor its directors, employees, or partners, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, or other intangible losses, resulting from your access to or use of the service.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">5. Disclaimer</h2>
+            <p>Your use of the service is at your sole risk. The service is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, whether express or implied.</p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">6. Changes to Terms</h2>
+            <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. By continuing to access or use our service after those revisions become effective, you agree to be bound by the revised terms.</p>
+          </section>
+
+          <section className="pt-6 border-t border-white/10">
+            <p>For legal inquiries: <span className="text-teal-400">legal@globlcoretech.com</span></p>
+          </section>
         </div>
-      </section>
-
-      {/* Content */}
-      <section className="mx-auto max-w-5xl px-6 py-16">
-        <div className="space-y-12 text-gray-700 leading-relaxed">
-          {/* Introduction */}
-          <p>
-            By accessing or using the <strong>Globalcore Tech</strong> website,
-            you agree to be bound by these Terms and Conditions. If you do not
-            agree with any part of these terms, please do not use our website
-            or services.
-          </p>
-
-          {/* Use of Website */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Use of Website
-            </h2>
-            <p className="mt-4">
-              The content provided on this website is for general informational
-              purposes only. We reserve the right to modify, update, or remove
-              any content without prior notice.
-            </p>
-            <p className="mt-4">
-              You agree not to misuse the website or attempt to access
-              restricted areas, systems, or data without authorization.
-            </p>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Services
-            </h2>
-            <p className="mt-4">
-              Globalcore Tech provides software development, consulting, and
-              related technology services. Any service engagement is subject
-              to a separate agreement, proposal, or contract.
-            </p>
-          </div>
-
-          {/* Intellectual Property */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Intellectual Property
-            </h2>
-            <p className="mt-4">
-              All content on this website, including text, graphics, logos,
-              and designs, is the property of Globalcore Tech unless stated
-              otherwise. Unauthorized use, reproduction, or distribution is
-              strictly prohibited.
-            </p>
-          </div>
-
-          {/* Limitation of Liability */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Limitation of Liability
-            </h2>
-            <p className="mt-4">
-              Globalcore Tech shall not be liable for any direct, indirect,
-              incidental, or consequential damages arising from the use or
-              inability to use this website or related services.
-            </p>
-          </div>
-
-          {/* Third-Party Links */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Third-Party Links
-            </h2>
-            <p className="mt-4">
-              This website may contain links to third-party websites. We are
-              not responsible for the content, policies, or practices of
-              any third-party sites.
-            </p>
-          </div>
-
-          {/* Changes to Terms */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Changes to These Terms
-            </h2>
-            <p className="mt-4">
-              We reserve the right to update or modify these Terms and
-              Conditions at any time. Continued use of the website after
-              changes implies acceptance of the revised terms.
-            </p>
-          </div>
-
-          {/* Governing Law */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Governing Law
-            </h2>
-            <p className="mt-4">
-              These terms shall be governed and interpreted in accordance
-              with the laws of India.
-            </p>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900">
-              Contact Information
-            </h2>
-            <p className="mt-4">
-              If you have any questions regarding these Terms and Conditions,
-              please contact us at:
-            </p>
-            <p className="mt-2 font-medium text-gray-900">
-              📧 contact@globlcoretech.com
-            </p>
-          </div>
-
-          {/* Footer Note */}
-          <div className="border-t pt-8 text-sm text-gray-500">
-            <p>
-              By using this website, you acknowledge that you have read,
-              understood, and agreed to these Terms and Conditions.
-            </p>
-          </div>
-        </div>
-      </section>
+      </div>
     </main>
   );
 }
