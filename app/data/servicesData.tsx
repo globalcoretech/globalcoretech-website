@@ -1,5 +1,3 @@
-/* app/data/servicesData.tsx */
-
 export type ServiceData = {
   slug: string;
   title: string;
@@ -33,8 +31,8 @@ export const servicesData: Record<string, ServiceData> = {
     ctaDescription: "Let's build an intelligent system for your brand."
   },
 
-  "web-development": {
-    slug: "web-development",
+  "web-apps": {
+    slug: "web-apps",
     title: "Web App & Website Development",
     heroSubtitle: "High-Performance Digital Assets",
     overview: "Modern, fast, and SEO-optimized web applications built with Next.js for real business growth.",
@@ -49,8 +47,8 @@ export const servicesData: Record<string, ServiceData> = {
     ctaDescription: "Ready to scale your online presence?"
   },
 
-  "mobile-development": {
-    slug: "mobile-development",
+  "mobile-apps": {
+    slug: "mobile-apps",
     title: "Mobile App Development",
     heroSubtitle: "Native Experience on Every Screen",
     overview: "High-quality iOS and Android apps that offer smooth performance and great user experience.",
@@ -65,8 +63,8 @@ export const servicesData: Record<string, ServiceData> = {
     ctaDescription: "Turn your idea into a high-rating mobile app."
   },
 
-  "saas-development": {
-    slug: "saas-development",
+  "saas-platforms": {
+    slug: "saas-platforms",
     title: "SaaS Ecosystems",
     heroSubtitle: "Robust Multi-Tenant Platforms",
     overview: "Scalable software-as-a-service products with subscription and payment integrations built-in.",
@@ -79,5 +77,22 @@ export const servicesData: Record<string, ServiceData> = {
     whyChoose: ["Fast Time-to-Market", "Scalable Backend", "Auth Integration"],
     ctaTitle: "Start Your SaaS",
     ctaDescription: "Build a product that generates recurring revenue."
+  },
+
+  // ✅ YE MISSING THA - ADDED NOW
+  "cloud-solutions": {
+    slug: "cloud-solutions",
+    title: "Cloud Infrastructure & DevOps",
+    heroSubtitle: "Scalable, Secure, and High-Availability Systems",
+    overview: "We architect robust cloud environments that ensure your applications are always online and lightning fast.",
+    techStack: ["AWS", "Docker", "Kubernetes", "Terraform"],
+    idealFor: ["High-Traffic Sites", "Enterprise Apps", "FinTech"],
+    benefits: [
+      { title: "99.9% Uptime", desc: "Rock-solid reliability for your mission-critical apps." },
+      { title: "Auto-Scaling", desc: "Infrastructure that grows with your traffic." }
+    ],
+    whyChoose: ["DevOps Automation", "Cost Optimization", "Enhanced Security"],
+    ctaTitle: "Optimize Your Cloud",
+    ctaDescription: "Ready for a zero-downtime infrastructure?"
   }
 };

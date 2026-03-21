@@ -1,177 +1,307 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { 
-  Rocket, Globe, Cpu, ArrowRight, 
-  CheckCircle2, AlertCircle, Sparkles, 
-  Smartphone, ShieldCheck, Zap 
+import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Rocket, Globe, Cpu, ArrowRight,
+  CheckCircle2, AlertCircle, Sparkles,
+  Smartphone, Zap, Shield, Star, ArrowUpRight
 } from "lucide-react";
 import Link from "next/link";
 import CTASection from "@/components/CTA";
+import ServicesHero from "./ServicesHero";
 
-// Smooth Animation Wrapper
-const Reveal = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-20px" }}
-    transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
-  >
-    {children}
-  </motion.div>
-);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-// Updated with your exact folder structure/slugs
 const serviceData = [
   {
     title: "SaaS Ecosystems",
-    slug: "/services/saas-development",
-    icon: <Rocket className="w-8 h-8" />,
-    desc: "Robust multi-tenant platforms with subscription and payment integrations built-in.",
-    tags: ["Stripe", "Auth Integration", "AWS"],
-    color: "from-teal-500/20 to-blue-500/20"
+    slug: "/services/saas-platforms",
+    icon: Rocket,
+    desc: "Robust multi-tenant platforms with subscription, billing, and payment integrations built to scale from day one.",
+    tags: ["Stripe", "Auth", "AWS", "Multi-tenant"],
+    color: "#2dd4bf",
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800",
+    stat: "10x", statLabel: "Scale Ready",
+    num: "01",
   },
   {
     title: "Web Development",
-    slug: "/services/web-development",
-    icon: <Globe className="w-8 h-8" />,
-    desc: "High-performance digital assets optimized for Core Web Vitals and real business growth.",
+    slug: "/services/web-apps",
+    icon: Globe,
+    desc: "High-performance digital assets optimized for Core Web Vitals, SEO, and real business growth at enterprise velocity.",
     tags: ["Next.js 15", "TypeScript", "Prisma"],
-    color: "from-purple-500/20 to-teal-500/20"
+    color: "#a78bfa",
+    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800",
+    stat: "<500ms", statLabel: "Load Time",
+    num: "02",
   },
   {
     title: "AI Automation",
     slug: "/services/ai-automation",
-    icon: <Cpu className="w-8 h-8" />,
-    desc: "Implementing cutting-edge AI workflows and LLMs to automate repetitive tasks.",
-    tags: ["OpenAI", "LangChain", "Python"],
-    color: "from-teal-500/20 to-emerald-500/20"
+    icon: Cpu,
+    desc: "Cutting-edge AI workflows, LLM integrations, and intelligent agents that automate repetitive tasks and decisions.",
+    tags: ["OpenAI", "LangChain", "Python", "Agents"],
+    color: "#34d399",
+    img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=800",
+    stat: "80%", statLabel: "Task Reduction",
+    num: "03",
   },
   {
     title: "Mobile Development",
-    slug: "/services/mobile-development",
-    icon: <Smartphone className="w-8 h-8" />,
-    desc: "High-quality iOS and Android apps with smooth performance and great UX.",
+    slug: "/services/mobile-apps",
+    icon: Smartphone,
+    desc: "High-quality cross-platform iOS & Android apps with smooth 60fps performance, great UX, and offline-first architecture.",
     tags: ["React Native", "Expo", "Firebase"],
-    color: "from-blue-500/20 to-purple-500/20"
-  }
+    color: "#f59e0b",
+    img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800",
+    stat: "60fps", statLabel: "Performance",
+    num: "04",
+  },
+];
+
+const comparisonRows = [
+  { problem: "Hard-coded & Slow",           solution: "API-First & Scalable" },
+  { problem: "Frequent Downtime",           solution: "99.99% Uptime SLA" },
+  { problem: "Security as Afterthought",    solution: "Built-in Encryption" },
+  { problem: "Messy Documentation",         solution: "Self-Documenting Code" },
+  { problem: "Vendor Lock-in",              solution: "Open, Portable Systems" },
+  { problem: "Bloated Tech Debt",           solution: "Zero-Debt Engineering" },
+];
+
+const industries = [
+  { name: "B2B SaaS",    color: "#2dd4bf" },
+  { name: "E-commerce",  color: "#a78bfa" },
+  { name: "FinTech",     color: "#34d399" },
+  { name: "AI Labs",     color: "#f59e0b" },
+  { name: "Healthcare",  color: "#f472b6" },
+  { name: "Web3",        color: "#60a5fa" },
+  { name: "EdTech",      color: "#fb923c" },
+  { name: "Logistics",   color: "#a3e635" },
 ];
 
 export default function ServicesClient() {
-  return (
-    <div className="bg-[#0B0F0E] text-white selection:bg-teal-500/30 font-sans">
-      
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative pt-48 pb-32 px-6 text-center overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-150 bg-teal-500/5 blur-[120px] pointer-events-none" />
-        
-        <Reveal>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-teal-400" />
-            <span className="text-teal-400 text-xs font-bold uppercase tracking-[0.2em]">Our Expert Solutions</span>
-          </div>
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.85] mb-8">
-            Engineering for <br /> <span className="text-teal-400 italic font-serif">Digital Excellence.</span>
-          </h1>
-          <p className="text-neutral-400 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light">
-            We don't just build apps. We architect systems that fuel revenue, 
-            efficiency, and long-term scalability.
-          </p>
-        </Reveal>
-      </section>
+  const sectionRef  = useRef<HTMLDivElement>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-      {/* ================= SERVICES GRID ================= */}
-      <section className="py-10 px-6 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+  useGSAP(() => {
+    // Section titles
+    gsap.utils.toArray<HTMLElement>(".sc-title").forEach(el => {
+      gsap.fromTo(el,
+        { y: 60, opacity: 0, filter: "blur(8px)" },
+        { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.1, ease: "expo.out",
+          scrollTrigger: { trigger: el, start: "top 85%", once: true } }
+      );
+    });
+    // Service cards
+    gsap.fromTo(".svc-card",
+      { opacity: 0, y: 70, scale: 0.94 },
+      { opacity: 1, y: 0, scale: 1, stagger: 0.12, duration: 1, ease: "power4.out",
+        scrollTrigger: { trigger: ".svc-grid", start: "top 80%", once: true } }
+    );
+    // Comparison rows
+    gsap.fromTo(".cmp-row",
+      { opacity: 0, x: -30 },
+      { opacity: 1, x: 0, stagger: 0.08, duration: 0.8, ease: "power3.out",
+        scrollTrigger: { trigger: ".cmp-table", start: "top 80%", once: true } }
+    );
+    // Industry tiles
+    gsap.fromTo(".ind-tile",
+      { opacity: 0, scale: 0.85 },
+      { opacity: 1, scale: 1, stagger: 0.06, duration: 0.6, ease: "back.out(1.5)",
+        scrollTrigger: { trigger: ".ind-grid", start: "top 80%", once: true } }
+    );
+  }, { scope: sectionRef });
+
+  return (
+    <div ref={sectionRef} className="bg-[#020202] text-white selection:bg-teal-500/30 overflow-x-hidden">
+
+      {/* HERO */}
+      <ServicesHero />
+
+      {/* ═══════════════════════════════════════════
+          SERVICES GRID — Editorial Layout
+      ═══════════════════════════════════════════ */}
+      <section className="py-32 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
+          <div>
+            <span className="text-teal-500 font-mono text-[9px] uppercase tracking-[0.5em] font-black block mb-4">001 / Core Services</span>
+            <h2 className="sc-title text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85]">
+              What we <br /><span className="text-teal-400 italic" style={{ fontFamily:"Georgia,serif" }}>build.</span>
+            </h2>
+          </div>
+          <p className="text-neutral-600 text-sm max-w-xs font-light leading-relaxed">
+            Four core service pillars — each engineered for extreme performance, scalability, and zero technical debt.
+          </p>
+        </div>
+
+        <div className="svc-grid grid md:grid-cols-2 gap-6">
           {serviceData.map((item, i) => (
-            <Reveal key={i} delay={i * 0.1}>
-              <Link href={item.slug} className="group relative block h-full">
-                {/* Glow Effect on Hover */}
-                <div className={`absolute inset-0 bg-linear-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-4xl blur-xl`} />
-                
-                <div className="relative h-full p-8 rounded-4xl bg-white/2 border border-white/5 hover:border-teal-500/40 transition-all duration-500 backdrop-blur-3xl flex flex-col">
-                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-teal-400 mb-6 group-hover:rotate-6 group-hover:bg-teal-500/10 transition-all duration-500">
-                    {item.icon}
+            <Link key={i} href={item.slug}>
+              <div
+                className="svc-card group relative rounded-[2.5rem] border border-white/[0.07] overflow-hidden transition-all duration-500 hover:border-white/20 cursor-pointer"
+                style={{ background: "#0a0a0a" }}
+                onMouseEnter={() => setHoveredCard(i)}
+                onMouseLeave={() => setHoveredCard(null)}>
+
+                {/* Image strip */}
+                <div className="relative h-44 overflow-hidden">
+                  <img src={item.img} alt={item.title}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-2000 scale-105 group-hover:scale-100" />
+                  <div className="absolute inset-0 bg-linear-to-b from-transparent to-[#0a0a0a]" />
+                  {/* Num watermark */}
+                  <div className="absolute top-4 right-5 font-black text-7xl leading-none select-none opacity-[0.08] text-white">{item.num}</div>
+                  {/* Stat badge */}
+                  <div className="absolute top-4 left-5 px-3 py-1.5 rounded-xl bg-black/60 border backdrop-blur-md"
+                    style={{ borderColor: `${item.color}30` }}>
+                    <p className="font-black text-sm leading-none" style={{ color: item.color }}>{item.stat}</p>
+                    <p className="text-neutral-600 text-[8px] font-black uppercase tracking-widest mt-0.5">{item.statLabel}</p>
                   </div>
-                  
-                  <h3 className="text-2xl font-bold mb-3 tracking-tight group-hover:text-teal-400 transition-colors">
+                  {/* Color tint on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    style={{ background: `linear-gradient(to bottom, ${item.color}10, transparent)` }} />
+                </div>
+
+                {/* Content */}
+                <div className="p-8 relative">
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                    style={{ background: `radial-gradient(ellipse at top, ${item.color}08 0%, transparent 70%)` }} />
+
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="flex items-center gap-4">
+                      <div className="w-11 h-11 rounded-2xl border flex items-center justify-center relative z-10"
+                        style={{ background: `${item.color}10`, borderColor: `${item.color}25` }}>
+                        <item.icon size={20} style={{ color: item.color }} />
+                      </div>
+                      <div>
+                        <span className="font-mono text-[9px] uppercase tracking-[0.4em] font-black" style={{ color: item.color }}>Service_{item.num}</span>
+                      </div>
+                    </div>
+                    <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/30 group-hover:bg-white/5 transition-all">
+                      <ArrowUpRight size={14} className="text-white/30 group-hover:text-white/70 transition-colors" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl font-black mb-3 uppercase tracking-tight text-white group-hover:text-teal-50 transition-colors relative z-10">
                     {item.title}
                   </h3>
-                  
-                  <p className="text-neutral-500 text-sm mb-6 leading-relaxed grow">
+                  <p className="text-neutral-500 text-sm font-light leading-relaxed mb-6 relative z-10 group-hover:text-neutral-300 transition-colors">
                     {item.desc}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {item.tags.map((tag, idx) => (
-                      <span key={idx} className="text-[9px] uppercase tracking-widest px-2 py-1 rounded-md bg-white/5 border border-white/10 text-neutral-400">
+                  <div className="flex flex-wrap gap-2 relative z-10">
+                    {item.tags.map((tag, j) => (
+                      <span key={j} className="text-[9px] uppercase tracking-widest px-3 py-1 rounded-lg border border-white/[0.07] text-neutral-600 group-hover:border-white/15 group-hover:text-neutral-400 transition-all">
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-teal-400 group-hover:gap-4 transition-all">
-                    View Solution <ArrowRight className="w-4 h-4" />
-                  </div>
+                  <div className="mt-5 h-px w-6 group-hover:w-full transition-all duration-700 relative z-10"
+                    style={{ background: item.color }} />
                 </div>
-              </Link>
-            </Reveal>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* ================= COMPARISON SECTION ================= */}
-      <section className="py-32 px-6 max-w-5xl mx-auto">
-        <Reveal>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4">Standard vs <span className="text-teal-400 italic font-serif">Globalcore</span></h2>
-            <p className="text-neutral-500">Why system-first architecture beats feature-first development.</p>
-          </div>
+      {/* ═══════════════════════════════════════════
+          COMPARISON TABLE
+      ═══════════════════════════════════════════ */}
+      <section className="py-32 px-6 max-w-6xl mx-auto border-t border-white/5">
+        <div className="text-center mb-16">
+          <span className="text-teal-500 font-mono text-[9px] uppercase tracking-[0.5em] font-black block mb-4">002 / Why Us</span>
+          <h2 className="sc-title text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-5">
+            Standard vs <br />
+            <span className="text-teal-400 italic" style={{ fontFamily:"Georgia,serif" }}>GlobalCore</span>
+          </h2>
+          <p className="text-neutral-600 text-sm font-light">Why system-first architecture beats feature-first development.</p>
+        </div>
 
-          <div className="rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/1">
-            <div className="grid grid-cols-2 bg-white/5 p-6 border-b border-white/10 text-center text-xs font-bold uppercase tracking-widest">
-              <div className="text-neutral-500">Traditional Agency</div>
-              <div className="text-teal-400">Our Strategic Build</div>
+        <div className="cmp-table rounded-[2.5rem] overflow-hidden border border-white/[0.07]" style={{ background: "#0a0a0a" }}>
+          {/* Header */}
+          <div className="grid grid-cols-2 border-b border-white/6">
+            <div className="p-6 text-center border-r border-white/6">
+              <span className="text-neutral-600 text-[10px] font-black uppercase tracking-[0.4em]">Traditional Agency</span>
             </div>
-            {[
-              { p: "Hard-coded & Slow", s: "API-First & Scalable" },
-              { p: "Frequent Downtime", s: "99.9% Uptime SLA" },
-              { p: "Security as Afterthought", s: "Built-in Encryption" },
-              { p: "Messy Documentation", s: "Self-Documenting Code" }
-            ].map((row, i) => (
-              <div key={i} className="grid grid-cols-2 border-b border-white/5 last:border-0 p-8 hover:bg-white/2 transition-colors">
-                <div className="flex items-center gap-3 text-neutral-500 text-sm italic">
-                  <AlertCircle className="w-4 h-4 text-red-500/20" /> {row.p}
-                </div>
-                <div className="flex items-center gap-3 text-white text-sm font-medium border-l border-white/5 pl-8">
-                  <CheckCircle2 className="w-4 h-4 text-teal-400" /> {row.s}
-                </div>
-              </div>
-            ))}
+            <div className="p-6 text-center">
+              <span className="text-teal-400 text-[10px] font-black uppercase tracking-[0.4em]">Our Strategic Build</span>
+            </div>
           </div>
-        </Reveal>
+          {comparisonRows.map((row, i) => (
+            <div key={i} className="cmp-row grid grid-cols-2 border-b border-white/4 last:border-0 group hover:bg-white/2 transition-colors">
+              <div className="p-7 flex items-center gap-4 border-r border-white/4 text-sm">
+                <AlertCircle size={16} className="text-red-500/40 shrink-0" />
+                <span className="text-neutral-600 italic">{row.problem}</span>
+              </div>
+              <div className="p-7 flex items-center gap-4 text-sm">
+                <CheckCircle2 size={16} className="text-teal-400 shrink-0" />
+                <span className="text-white font-medium">{row.solution}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* ================= WHO WE SERVE ================= */}
-      <section className="py-24 px-6 border-t border-white/5 bg-linear-to-b from-transparent to-teal-500/2">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 items-center">
-          <div className="md:col-span-1">
-            <h2 className="text-4xl font-bold tracking-tighter mb-4 text-white">Who We <span className="text-teal-400 italic">Serve.</span></h2>
-            <p className="text-neutral-500 leading-relaxed">From stealth startups to global enterprises, we provide the technical leverage needed to win.</p>
+      {/* ═══════════════════════════════════════════
+          WHO WE SERVE
+      ═══════════════════════════════════════════ */}
+      <section className="py-32 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <div className="grid lg:grid-cols-12 gap-16 items-start">
+          <div className="lg:col-span-4">
+            <span className="text-teal-500 font-mono text-[9px] uppercase tracking-[0.5em] font-black block mb-4">003 / Industries</span>
+            <h2 className="sc-title text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.85] mb-6">
+              Who we <br /><span className="text-teal-400 italic" style={{ fontFamily:"Georgia,serif" }}>serve.</span>
+            </h2>
+            <p className="text-neutral-500 text-base font-light leading-relaxed max-w-xs border-l-2 border-teal-500/20 pl-5">
+              From stealth startups to global enterprises — we provide the technical leverage needed to dominate your market.
+            </p>
           </div>
-          <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {["B2B SaaS", "E-commerce", "FinTech", "AI Labs", "Healthcare", "Web3"].map((n) => (
-              <div key={n} className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center text-sm font-bold text-neutral-400 hover:border-teal-500/30 transition-all cursor-default">
-                {n}
-              </div>
-            ))}
+          <div className="lg:col-span-8">
+            <div className="ind-grid grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {industries.map((ind, i) => (
+                <div key={i}
+                  className="ind-tile group relative p-6 rounded-2xl border border-white/[0.07] bg-white/2 hover:border-white/20 transition-all duration-300 text-center overflow-hidden cursor-default">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `radial-gradient(ellipse at center, ${ind.color}10 0%, transparent 70%)` }} />
+                  <div className="w-2 h-2 rounded-full mx-auto mb-3 relative z-10" style={{ background: ind.color }} />
+                  <span className="text-sm font-black text-neutral-400 group-hover:text-white transition-colors uppercase tracking-tight relative z-10">
+                    {ind.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <div className="mt-20">
-        <CTASection />
-      </div>
+      {/* ═══════════════════════════════════════════
+          TRUST STRIP
+      ═══════════════════════════════════════════ */}
+      <section className="py-16 px-6 border-t border-white/5">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5">
+          {[
+            { val: "150+", label: "Projects Shipped" },
+            { val: "99.99%", label: "Uptime SLA" },
+            { val: "8+",    label: "Countries" },
+            { val: "< 2hr", label: "Support Response" },
+          ].map((item, i) => (
+            <div key={i} className="px-8 text-center">
+              <p className="text-3xl font-black text-white tracking-tighter mb-1">{item.val}</p>
+              <p className="text-neutral-600 text-[9px] font-black uppercase tracking-[0.3em]">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <CTASection />
     </div>
   );
 }

@@ -14,6 +14,20 @@ body {
   scroll-behavior: auto;
 }
 
+
+.noise-bg {
+  position: fixed;
+  inset: -200%;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.reveal-text {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
 .lenis {
   scroll-behavior: auto;
 }

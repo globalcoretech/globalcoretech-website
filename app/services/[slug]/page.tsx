@@ -3,171 +3,49 @@ import type { Metadata } from "next";
 import ServiceDetailClient from "../ServiceDetailClient";
 import { servicesData } from "../../data/servicesData";
 
-type Params = Promise<{
-  slug: string;
-}>;
+// Next.js 15 Requirement: Params ko Promise define karna padta hai
+type Params = Promise<{ slug: string }>;
 
-/* ================= STATIC PARAMS ================= */
+/* ================= STATIC PATHS ================= */
+// Ye function Next.js ko batata hai ki build ke time kaunse pages banane hain
 export async function generateStaticParams() {
-  return Object.keys(servicesData).map((slug) => ({
-    slug,
+  const slugs = Object.keys(servicesData);
+  console.log("Generating static params for:", slugs); // Terminal mein check karo
+  return slugs.map((slug) => ({
+    slug: slug,
   }));
 }
 
-/* ================= METADATA ================= */
-export async function generateMetadata(
-  { params }: { params: Params }
-): Promise<Metadata> {
-
-  const { slug } = await params;   // ✅ FIXED
-
+/* ================= DYNAMIC METADATA ================= */
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { slug } = await params;
   const service = servicesData[slug];
 
-  if (!service) {
-    return {};
-  }
-
-  const baseUrl = "https://www.globlcoretech.com";
-  const url = `${baseUrl}/services/${slug}`;
-  const imageUrl = `${baseUrl}/og-images/${slug}.png`;
+  if (!service) return { title: "Service Not Found" };
 
   return {
     title: `${service.title} | GlobalcoreTech`,
     description: service.overview,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title: service.title,
-      description: service.overview,
-      url: url,
-      siteName: "GlobalcoreTech",
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: service.title,
-        },
-      ],
-      locale: "en_IN",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: service.title,
-      description: service.overview,
-      images: [imageUrl],
-    },
   };
 }
 
-/* ================= PAGE ================= */
-export default async function ServiceDetailPage(
-  { params }: { params: Params }
-) {
-
-  const { slug } = await params;   // ✅ FIXED
-
+/* ================= PAGE COMPONENT ================= */
+export default async function ServiceDetailPage({ params }: { params: Params }) {
+  // 1. Params ko await karo (Next.js 15 Rule)
+  const { slug } = await params;
+  
+  // 2. Data fetch logic - directly object se uthao
   const service = servicesData[slug];
 
+  // 3. Agar slug nahi mila, toh 404 dikhao
   if (!service) {
+    console.error(`Slug not found in servicesData: ${slug}`);
     notFound();
   }
 
-  const baseUrl = "https://www.globlcoretech.com";
-
-  /* ================= SERVICE SCHEMA ================= */
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.title,
-    description: service.overview,
-    provider: {
-      "@type": "Organization",
-      name: "GlobalcoreTech",
-      url: baseUrl,
-    },
-  };
-
-  /* ================= BREADCRUMB SCHEMA ================= */
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: baseUrl,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: `${baseUrl}/services`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: service.title,
-        item: `${baseUrl}/services/${slug}`,
-      },
-    ],
-  };
-
-  /* ================= FAQ SCHEMA ================= */
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "How long does development take?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Most projects take between 4 to 12 weeks depending on complexity.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Do you provide ongoing support?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, we provide ongoing support, maintenance, and optimization.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can the system scale as business grows?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, we build scalable systems designed for long-term growth.",
-        },
-      },
-    ],
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(serviceSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema),
-        }}
-      />
+      {/* Client Component ko data pass kar rahe hain */}
       <ServiceDetailClient service={service} />
     </>
   );

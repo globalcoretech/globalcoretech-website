@@ -3,22 +3,23 @@ import ServicesSection from "@/components/home/ServicesSection";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import ProcessSection from "@/components/home/ProcessSection";
 import PartnerSection from "@/components/home/PartnerSection";
+import RoadmapTeaser from "@/components/home/RoadmapTeaser";
 import CTASection from "@/components/home/CTASection";
 
-export const metadata = {
-title: "GlobalcoreTech | Premium Software & AI Solutions",
-description:
-"We design and build premium software, AI automation, and scalable digital products for startups and enterprises.",
-};
-
 export default function HomePage() {
-return (
-<div className="relative bg-[#0B0F0E] selection:bg-teal-500/30 font-sans text-white overflow-hidden">
-  <HeroSection />
-  <ServicesSection />
-  <PartnerSection />
-  <ProcessSection />
-  <CTASection />
-</div>
-);
+  return (
+    // yahan overflow-x-hidden rakha hai taki side scroll na ho, par upar-neeche makkhan chale
+    <main className="relative bg-[#050505] w-full min-h-screen">
+      <HeroSection />
+      
+      <div className="relative z-10 bg-[#050505]">
+        <ServicesSection />
+        <WhyChooseUs />
+        <PartnerSection />
+        <ProcessSection />
+        <RoadmapTeaser />
+        <CTASection />
+      </div>
+    </main>
+  );
 }

@@ -1,31 +1,25 @@
 "use client";
+import { useEffect } from "react";
+import Lenis from "@studio-freight/lenis";
 
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-export default function SmoothScroll({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
-
+export default function SmoothScroll() {
   useEffect(() => {
-    setMounted(true);
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+    return () => lenis.destroy();
   }, []);
 
-  // ✅ CRITICAL FIX: Reset scroll on route change
-  useEffect(() => {
-    if (mounted) {
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
-  }, [pathname, mounted]);
-
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
-  return <div className="scroll-smooth">{children}</div>;
+  return null;
 }
