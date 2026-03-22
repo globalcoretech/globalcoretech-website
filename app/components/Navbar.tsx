@@ -13,6 +13,7 @@ import { ArrowUpRight, Menu, X, Zap, MessageCircle } from "lucide-react";
 const navLinks = [
   { name: "Home",     href: "/" },
   { name: "Services", href: "/services" },
+  { name: "Roadmap",  href: "/roadmap-generator", isNew: true },
   { name: "About",    href: "/about" },
   { name: "Contact",  href: "/contact" },
 ];
@@ -44,11 +45,10 @@ export default function Navbar() {
 
   // GSAP entrance
   useGSAP(() => {
-    gsap.set(wrapRef.current, { visibility: "visible" });
-    gsap.timeline({ defaults: { ease: "expo.out", duration: 1.5 } })
-      .from(".nb-logo", { y: -20, opacity: 0, filter: "blur(8px)" })
-      .from(".nb-link", { y: -16, opacity: 0, filter: "blur(4px)", stagger: 0.07, clearProps: "all" }, "-=1.1")
-      .from(".nb-cta",  { scale: 0.85, opacity: 0, filter: "blur(4px)", clearProps: "all" }, "-=0.9");
+    gsap.timeline({ defaults: { ease: "expo.out", duration: 1.2 } })
+      .from(".nb-logo", { y: -20, opacity: 0, filter: "blur(8px)", clearProps: "all" })
+      .from(".nb-link", { y: -16, opacity: 0, filter: "blur(4px)", stagger: 0.07, clearProps: "all" }, "-=1.0")
+      .from(".nb-cta",  { scale: 0.85, opacity: 0, filter: "blur(4px)", clearProps: "all" }, "-=0.8");
   }, { scope: wrapRef });
 
   // Magnetic CTA
@@ -71,12 +71,11 @@ export default function Navbar() {
 
   return (
     <>
-      <div ref={wrapRef} className="fixed top-0 left-0 w-full z-9999 pointer-events-none"
-        style={{ visibility: "hidden" }}>
+      <div ref={wrapRef} className="fixed top-0 left-0 w-full z-9999 pointer-events-none">
 
         {/* Outer padding animates on scroll */}
         <motion.div
-          animate={{ padding: scrolled ? "10px 14px" : "20px 24px" }}
+          animate={{ padding: scrolled ? "8px 12px" : "16px 16px" }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           className="pointer-events-none">
 
@@ -163,6 +162,14 @@ export default function Navbar() {
                           style={{ boxShadow: "0 0 6px #2dd4bf" }}
                         />
                       )}
+
+                      {/* New pulse badge */}
+                      {link.isNew && (
+                        <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500" />
+                        </span>
+                      )}
                     </motion.div>
                   </Link>
                 );
@@ -204,7 +211,7 @@ export default function Navbar() {
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-9990d:hidden"
+              className="fixed inset-0 z-9990 md:hidden"
               style={{ background: "rgba(0,0,0,0.65)", backdropFilter: "blur(6px)" }}
               onClick={() => setMobileOpen(false)}
             />
@@ -214,7 +221,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0,   scale: 1     }}
               exit={{   opacity: 0, y: -8,   scale: 0.97  }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed z-9995d:hidden overflow-hidden"
+              className="fixed z-9995 md:hidden overflow-hidden"
               style={{
                 top: "68px", left: "12px", right: "12px",
                 background: "rgba(5,5,5,0.97)",
@@ -253,6 +260,11 @@ export default function Navbar() {
                             style={{ color: isActive ? "#2dd4bf" : "rgba(255,255,255,0.35)" }}>
                             {link.name}
                           </span>
+                          {link.isNew && (
+                            <span className="px-2 py-0.5 rounded-full bg-teal-400/10 border border-teal-400/20 text-[7px] font-black text-teal-400 uppercase tracking-widest">
+                              New
+                            </span>
+                          )}
                         </div>
                         <ArrowUpRight size={13}
                           style={{ color: isActive ? "rgba(45,212,191,0.6)" : "rgba(255,255,255,0.1)" }}
