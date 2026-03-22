@@ -73,17 +73,13 @@ function useScramble(text: string, trigger: boolean) {
 
 export default function Footer() {
   const footerRef  = useRef<HTMLElement>(null);
-  const [isMounted,    setIsMounted]    = useState(false);
   const [scrambleTrig, setScrambleTrig] = useState(false);
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2026;
 
   const tagline = useScramble("GLOBALCORE TECH", scrambleTrig);
 
-  useEffect(() => { setIsMounted(true); }, []);
 
   useGSAP(() => {
-    if (!isMounted) return;
-
     // Marquee
     gsap.to(".footer-marquee", {
       xPercent: -50, duration: 25, repeat: -1, ease: "linear"
@@ -133,9 +129,8 @@ export default function Footer() {
       });
     });
 
-  }, [isMounted]);
+  }, []);
 
-  if (!isMounted) return null;
 
   return (
     <footer ref={footerRef} className="relative z-20 bg-[#020202] overflow-hidden border-t border-white/5">
@@ -355,7 +350,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <p className="text-neutral-700 text-[9px] uppercase tracking-[0.4em] font-mono">
-              © {currentYear} // Built by Globalcore Tech
+              © {currentYear} // Built by Globalcore Engineering Division
             </p>
 
             {/* Middle — scramble tagline */}
