@@ -11,8 +11,8 @@ import {
   Smartphone, Zap, Shield, Star, ArrowUpRight
 } from "lucide-react";
 import Link from "next/link";
-import CTASection from "@/components/CTA";
 import ServicesHero from "./ServicesHero";
+import CTASection from "@/components/CTA"; // ← Added back
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -288,7 +288,7 @@ export default function ServicesClient() {
       <section className="py-16 px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5">
           {[
-            { val: "150+", label: "Projects Shipped" },
+            { val: "150+",  label: "Projects Shipped" },
             { val: "99.99%", label: "Uptime SLA" },
             { val: "8+",    label: "Countries" },
             { val: "< 2hr", label: "Support Response" },
@@ -301,7 +301,9 @@ export default function ServicesClient() {
         </div>
       </section>
 
+      {/* ← CTA Section wapas add kiya */}
       <CTASection />
+
     </div>
   );
 }

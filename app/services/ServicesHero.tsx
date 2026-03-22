@@ -168,11 +168,11 @@ export default function ServicesHero() {
                   <h1 className="sh-line text-[15vw] md:text-[8.5vw] font-light tracking-tighter leading-[0.82] uppercase text-white">{l1}</h1>
                 </div>
                 <div className="overflow-hidden mb-1">
-                  <h1 className="sh-line text-[15vw] md:text-[8.5vw] font-black tracking-tighter leading-[0.82] uppercase text-transparent"
+                  <h1 className="sh-line text-[13vw] md:text-[8vw] font-black tracking-tighter leading-[0.82] uppercase text-transparent"
                     style={{ WebkitTextStroke: "2px #2dd4bf" }}>{l2}</h1>
                 </div>
                 <div className="overflow-hidden">
-                  <h1 className="sh-line text-[15vw] md:text-[8.5vw] font-black tracking-tighter leading-[0.82] uppercase text-teal-400 italic"
+                  <h1 className="sh-line text-[11vw] md:text-[7.5vw] font-black tracking-tighter leading-[0.82] uppercase text-teal-400 italic"
                     style={{ fontFamily: "Georgia, serif" }}>{l3}</h1>
                 </div>
               </div>

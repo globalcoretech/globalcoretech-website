@@ -33,7 +33,7 @@ const services = [
     icon: Smartphone,
     desc: "Cross-platform mobile experiences that feel native, load instantly, and scale to millions of users.",
     tag: "React Native / Flutter",
-    img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800",
+    img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=800",
     color: "#f59e0b",
   },
   {
@@ -103,7 +103,7 @@ const ServiceVisual = ({ slug, Icon, color }: { slug: string; Icon: any; color: 
               <div className="h-16 rounded-xl bg-white/5" />
               <div className="h-16 rounded-xl bg-white/5" />
             </div>
-            <div className="absolute inset-0 blur-3xl opacity-10" style={{ background: color }} />
+            <div className="absolute inset-0 blur-3xl opacity-5" style={{ background: color }} />
           </div>
         </div>
       )}
@@ -151,8 +151,8 @@ const ParallaxVisualWrapper = ({ slug, Icon, color }: { slug: string; Icon: any;
       className="lg:col-span-5 relative w-full h-[60vh] hidden lg:flex items-center justify-center"
       style={{ perspective: "2000px" }}>
       <motion.div style={{ rotateX: srx, rotateY: sry, transformStyle: "preserve-3d", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <motion.div className="absolute w-72 h-72 rounded-full blur-[100px]"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
+        <motion.div className="absolute w-72 h-72 rounded-full blur-[120px]"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.15, 0.08] }}
           transition={{ duration: 8, repeat: Infinity }}
           style={{ background: color }}
         />

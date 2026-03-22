@@ -196,23 +196,22 @@ export default function AboutClient() {
       xPercent: -50, duration: 30, repeat: -1, ease: "linear"
     });
 
-    // Phase cards — pin + entrance
+    // Phase cards — CSS sticky handles stacking, GSAP only for entrance
     const cards = gsap.utils.toArray<HTMLElement>(".phase-card");
     cards.forEach((card, i) => {
+      // Active phase detection via scroll
       ScrollTrigger.create({
         trigger: card,
-        start: "top 8%",
-        endTrigger: stackRef.current,
-        end: "bottom bottom",
-        pin: true,
-        pinSpacing: false,
+        start: "top 40%",
+        end: "bottom 40%",
         onEnter:     () => setActivePhase(i),
         onEnterBack: () => setActivePhase(i),
       });
+      // Simple entrance animation only
       gsap.fromTo(card,
-        { opacity: 0, y: 60, scale: 0.97 },
-        { opacity: 1, y: 0,  scale: 1,    duration: 1, ease: "power4.out",
-          scrollTrigger: { trigger: card, start: "top 90%", once: true } }
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: card, start: "top 88%", once: true } }
       );
     });
 
@@ -442,7 +441,7 @@ export default function AboutClient() {
           </section>
 
           {/* ═══════════ 4. PHASES — Card Stack ═══════════════════════════════ */}
-          <section ref={stackRef} id="process-section" className="relative px-6 border-b border-white/5" style={{ paddingTop: "10vh", paddingBottom: "50vh" }}>
+          <section ref={stackRef} id="process-section" className="relative px-6 border-b border-white/5" style={{ paddingTop: "10vh", paddingBottom: "15vh" }}>
 
             {/* Sticky nav sidebar (desktop) */}
             <div className="sticky top-[10vh] z-30 max-w-7xl mx-auto pointer-events-none hidden lg:block" style={{ height: 0 }}>
@@ -676,26 +675,6 @@ export default function AboutClient() {
             </div>
           </section>
 
-          {/* ═══════════ 7. PRE-CTA TEASER ════════════════════════════════════ */}
-          <section className="py-32 px-6 max-w-7xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-teal-500/20 bg-teal-500/5 mb-10">
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
-              <span className="text-teal-400 text-[9px] font-black tracking-[0.5em] uppercase">Currently Accepting Projects</span>
-            </div>
-            <h2 className="split-reveal text-6xl md:text-[9vw] font-black uppercase tracking-tighter leading-[0.82] mb-8">
-              Ready to <br />
-              <span className="text-teal-400 italic" style={{ fontFamily: "Georgia, serif" }}>ship?</span>
-            </h2>
-            <p className="text-neutral-500 text-xl font-light max-w-lg mx-auto mb-12">
-              Drop us a brief and get a technical scoping call within 24 hours. No fluff, just clarity.
-            </p>
-            <button className="mag group inline-flex items-center gap-4 px-10 py-5 bg-teal-400 text-black font-black uppercase tracking-widest text-sm rounded-full hover:bg-white transition-colors duration-300">
-              Start a Project
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-          </section>
-
-        </div>
 
         <CTASection />
 
@@ -707,7 +686,9 @@ export default function AboutClient() {
           }
           .animate-scanner { animation: scan 2.5s ease-in-out infinite; }
         `}</style>
-      </div>
+
+        </div>{/* closes relative z-10 */}
+      </div>{/* closes containerRef */}
     </>
   );
 }

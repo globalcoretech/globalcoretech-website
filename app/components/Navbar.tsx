@@ -11,11 +11,10 @@ import Image from "next/image";
 import { ArrowUpRight, Menu, X, Zap, MessageCircle } from "lucide-react";
 
 const navLinks = [
-  { name: "Home",     href: "/" },
-  { name: "Services", href: "/services" },
-  { name: "Roadmap",  href: "/roadmap-generator", isNew: true },
-  { name: "About",    href: "/about" },
-  { name: "Contact",  href: "/contact" },
+  { name: "Home",     href: "/", isNew: false },
+  { name: "Services", href: "/services", isNew: false },
+  { name: "About",    href: "/about", isNew: false },
+  { name: "Contact",  href: "/contact", isNew: false },
 ];
 
 export default function Navbar() {

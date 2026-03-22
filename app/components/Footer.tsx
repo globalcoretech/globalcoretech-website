@@ -171,33 +171,6 @@ export default function Footer() {
         {/* ── Main content ── */}
         <div className="max-w-7xl mx-auto px-6 pt-20 pb-10">
 
-          {/* ── CTA Banner ── */}
-          <div className="footer-col mb-20 p-8 md:p-12 rounded-[2.5rem] border border-white/[0.07] bg-white/2 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div>
-              <span className="text-teal-500 font-mono text-[9px] uppercase tracking-[0.5em] font-black block mb-3">
-                Currently Accepting Projects
-              </span>
-              <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-[0.85] text-white">
-                Ready to build <br />
-                <span className="text-teal-400 italic" style={{ fontFamily: "Georgia,serif" }}>something great?</span>
-              </h3>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-              <Link href="/contact">
-                <div className="group flex items-center gap-3 px-7 py-4 rounded-full bg-teal-400 text-black font-black uppercase tracking-widest text-[11px] hover:bg-white transition-colors duration-300 cursor-pointer">
-                  Start a Project
-                  <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
-              </Link>
-              <a href="https://wa.me/+917879130175" target="_blank" rel="noreferrer">
-                <div className="group flex items-center gap-3 px-7 py-4 rounded-full border border-white/10 text-neutral-400 hover:text-white hover:border-white/25 transition-all text-[11px] font-black uppercase tracking-widest cursor-pointer">
-                  <MessageCircle size={15} className="text-[#25D366]" />
-                  WhatsApp
-                </div>
-              </a>
-            </div>
-          </div>
-
           {/* ── Trust badges strip ── */}
           <div className="trust-strip footer-col flex flex-wrap gap-3 mb-20">
             {TRUST_BADGES.map((b, i) => (
@@ -350,7 +323,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <p className="text-neutral-700 text-[9px] uppercase tracking-[0.4em] font-mono">
-              © {currentYear} // Built by Globalcore Engineering Division
+              © {currentYear} // Built by Globalcore Tech
             </p>
 
             {/* Middle — scramble tagline */}

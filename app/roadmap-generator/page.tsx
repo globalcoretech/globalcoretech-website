@@ -315,7 +315,7 @@ export default function RoadmapGenerator() {
   const progress = (step / 5) * 100;
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-[#020202] text-white pt-28 pb-24 px-6 relative overflow-hidden">
+    <main ref={containerRef} className="bg-[#020202] text-white pt-28 pb-24 px-6 relative overflow-hidden">
 
       {/* Ambient orbs */}
       <div className="fixed inset-0 z-0 pointer-events-none">

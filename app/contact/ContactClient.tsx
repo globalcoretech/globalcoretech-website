@@ -288,7 +288,7 @@ export default function ContactPage() {
                   <img
                     src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=1200"
                     alt="Contact visual"
-                    className="w-full h-full object-cover grayscale opacity-30"
+                    className="w-full h-full object-cover grayscale opacity-55"
                   />
                   <div className="absolute inset-0 bg-linear-to-b from-transparent to-[#0b0b0b]" />
                   {/* Teal border line */}
