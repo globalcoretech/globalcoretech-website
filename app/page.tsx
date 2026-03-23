@@ -8,7 +8,6 @@ import CTASection from "@/components/home/CTASection";
 
 export default function HomePage() {
   return (
-    // yahan overflow-x-hidden rakha hai taki side scroll na ho, par upar-neeche makkhan chale
     <main className="relative bg-[#050505] w-full min-h-screen">
       <HeroSection />
       
