@@ -611,7 +611,7 @@ export default function AboutClient() {
                 <div className="relative rounded-[2.5rem] overflow-hidden bg-neutral-900 border border-white/7" style={{ aspectRatio: "3/4" }}>
                   <div className="founder-img-inner absolute inset-0 w-full h-[115%] top-[-7.5%]">
                     <Image
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800"
+                      src="/image/founder.jpeg"
                       alt="Umesh Yadav — Founder, GlobalCore Tech"
                       fill
                       className="object-cover grayscale hover:grayscale-0 transition-all duration-2000"
@@ -625,11 +625,6 @@ export default function AboutClient() {
                       <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-teal-400">Available for Projects</span>
                     </div>
                   </div>
-                </div>
-                {/* Floating stat */}
-                <div className="absolute -right-2 lg:-right-6 top-1/3 bg-[#0c0c0c] border border-white/10 rounded-2xl p-5 backdrop-blur-xl shadow-2xl">
-                  <p className="text-3xl font-black text-white">150+</p>
-                  <p className="text-neutral-500 text-[9px] uppercase tracking-widest font-black mt-1">Projects<br />Delivered</p>
                 </div>
               </div>
 
