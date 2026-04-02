@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./global.css";
@@ -8,9 +9,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// ── Root Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  // ── Basic ──────────────────────────────────────────────────────────────────
   title: {
     default: "GlobalCore Tech — Web Development, AI Automation & SaaS Platforms",
     template: "%s | GlobalCore Tech",
@@ -18,7 +17,6 @@ export const metadata: Metadata = {
   description:
     "GlobalCore Tech builds high-performance web apps, mobile apps, AI automation systems and SaaS platforms for startups and enterprises. Based in India, serving globally. Get a free technical roadmap.",
 
-  // ── Keywords ───────────────────────────────────────────────────────────────
   keywords: [
     "web development India",
     "AI automation agency",
@@ -29,7 +27,7 @@ export const metadata: Metadata = {
     "software agency India",
     "startup tech partner",
     "GlobalCore Tech",
-    "globlcoretech",
+    "globalcoretech",
     "web app development Chhattisgarh",
     "software company Raipur",
     "LLM integration",
@@ -37,29 +35,26 @@ export const metadata: Metadata = {
     "enterprise software India",
   ],
 
-  // ── Authors & Publisher ────────────────────────────────────────────────────
-  authors: [{ name: "GlobalCore Tech", url: "https://globlcoretech.com" }],
+  authors: [{ name: "GlobalCore Tech", url: "https://www.globlcoretech.com" }],
   creator: "GlobalCore Tech",
   publisher: "GlobalCore Tech",
 
-  // ── Canonical ──────────────────────────────────────────────────────────────
-  metadataBase: new URL("https://globlcoretech.com"),
+  metadataBase: new URL("https://www.globlcoretech.com"),
   alternates: {
     canonical: "/",
   },
 
-  // ── Open Graph ─────────────────────────────────────────────────────────────
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://globlcoretech.com",
+    url: "https://www.globlcoretech.com",
     siteName: "GlobalCore Tech",
     title: "GlobalCore Tech — Web Development, AI Automation & SaaS Platforms",
     description:
       "We build high-performance web apps, mobile apps, AI automation systems and SaaS platforms for startups and enterprises. India-based, globally trusted.",
     images: [
       {
-        url: "/og-image.png", // 1200x630px image /public/og-image.png mein rakho
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "GlobalCore Tech — Engineering the Next Digital Epoch",
@@ -67,17 +62,15 @@ export const metadata: Metadata = {
     ],
   },
 
-  // ── Twitter Card ───────────────────────────────────────────────────────────
   twitter: {
     card: "summary_large_image",
     title: "GlobalCore Tech — Web Development, AI Automation & SaaS Platforms",
     description:
       "High-performance web apps, mobile apps, AI automation and SaaS platforms. India-based, globally trusted.",
     images: ["/og-image.png"],
-    creator: "@globlcoretech",
+    creator: "@globalcoretech",
   },
 
-  // ── Robots ────────────────────────────────────────────────────────────────
   robots: {
     index: true,
     follow: true,
@@ -90,47 +83,41 @@ export const metadata: Metadata = {
     },
   },
 
-  // ── Icons ─────────────────────────────────────────────────────────────────
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
 
-  // ── Verification (Google Search Console mein add karo) ────────────────────
-  // verification: {
-  //   google: "YOUR_GOOGLE_VERIFICATION_CODE",
-  // },
-
-  // ── Category ──────────────────────────────────────────────────────────────
   category: "technology",
 };
 
-// ── Structured Data (JSON-LD) ─────────────────────────────────────────────────
-const jsonLd = {
+// Organization Schema
+const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "GlobalCore Tech",
-  alternateName: "GloblcoreTech",
-  url: "https://globlcoretech.com",
-  logo: "https://globlcoretech.com/logo/logo.png",
+  alternateName: "GlobalCoreTech",
+  url: "https://www.globlcoretech.com",
+  logo: "https://www.globlcoretech.com/logo/logo.png",
   description:
     "GlobalCore Tech builds high-performance web apps, mobile apps, AI automation systems and SaaS platforms for startups and enterprises.",
   address: {
     "@type": "PostalAddress",
     addressCountry: "IN",
     addressRegion: "Chhattisgarh",
+    addressLocality: "Raipur",
   },
   contactPoint: {
     "@type": "ContactPoint",
-    email: "contact@globlcoretech.com",
+    email: "contact@globalcoretech.com",
     contactType: "customer service",
     availableLanguage: ["English", "Hindi"],
   },
   sameAs: [
     "https://www.linkedin.com/company/globalcoretech",
-    "https://www.instagram.com/globlcoretech",
-    "https://www.threads.net/@globlcoretech",
+    "https://www.instagram.com/globalcoretech",
+    "https://www.threads.net/@globalcoretech",
   ],
   serviceArea: {
     "@type": "GeoShape",
@@ -149,14 +136,69 @@ const jsonLd = {
   },
 };
 
+// WebSite Schema — Google Sitelinks + Search ke liye
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "GlobalCore Tech",
+  url: "https://www.globlcoretech.com",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://www.globlcoretech.com/?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+// LocalBusiness Schema — India SEO ke liye
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "GlobalCore Tech",
+  image: "https://www.globlcoretech.com/logo/logo.png",
+  url: "https://www.globlcoretech.com",
+  telephone: "",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "",
+    addressLocality: "Raipur",
+    addressRegion: "Chhattisgarh",
+    postalCode: "492001",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 21.2514,
+    longitude: 81.6296,
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00",
+  },
+  priceRange: "$$$",
+  servesCuisine: "",
+  areaServed: "Worldwide",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
       <head>
-        {/* Structured Data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
       </head>
       <body className={`${inter.className} bg-[#0B0F0E] text-white antialiased overflow-x-hidden`}>
