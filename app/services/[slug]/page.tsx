@@ -58,12 +58,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     title: meta.title,
     description: meta.description,
     alternates: {
-      canonical: `https://globlcoretech.com/services/${slug}`,
+      canonical: `https://www.globlcoretech.com/services/${slug}`,
     },
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: `https://globlcoretech.com/services/${slug}`,
+      url: `https://www.globlcoretech.com/services/${slug}`,
       images: [{ url: "/og-image.png", width: 1200, height: 630, alt: meta.title }],
     },
     twitter: {
